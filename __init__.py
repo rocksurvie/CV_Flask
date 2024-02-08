@@ -15,7 +15,7 @@ def resume_2():
     return render_template("resume_2.html")
 
 
-@app.route('/fiche_client/<int:api_key>')
+@app.route('/consultation/<int:api_key>')
 def sha256_hash(input_string):
     # Fonction de hachage SHA-256
     sha256 = hashlib.sha256()
@@ -35,17 +35,18 @@ def check_sum_256(array, api_value, key_to_check):
     else:
         return False
     
-    
+"""5625719273"""
+
 def Readfiche(api_key):
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall()
-    
     conn.close()
-    
-    # Rendre le template HTML et transmettre les données
-    return render_template('read_data.html', data=data)
+    if check_sum_256(data, api_key, "tt"): 
+        # Rendre le template HTML et transmettre les données
+        return render_template('read_data.html', data=data)
+    return "api_key !!"
 
 
 
