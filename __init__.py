@@ -46,7 +46,7 @@ def Readfiche(api_key):
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall()
     conn.close()
-    array_sum = data[0]+5625719273
+    array_sum = data[0]+"5625719273"
     if check_sum_256(data, api_key, sha256_hash(array_sum)): 
         # Rendre le template HTML et transmettre les données
         return render_template('read_data.html', data=data)
@@ -60,7 +60,7 @@ def afficheGraph(api_key):
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall()
     conn.close()
-    array_sum = data[0]+5625719273
+    array_sum = data[0]+"5625719273"
     if check_sum_256(data, api_key, sha256_hash(array_sum)): 
         # Rendre le template HTML et transmettre les données
         return render_template('read_data.html', data=data)
