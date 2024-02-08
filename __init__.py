@@ -27,7 +27,7 @@ def sha256_hash(input_string):
 
 def check_sum_256(array, api_value, key_to_check):
     # Calcul de la somme
-    array_sum = str(array[0]) + api_value
+    array_sum = str(array[0]) + str(api_value)
 
     # Hachage de la somme avec SHA-256
     hashed_sum = sha256_hash(str(array_sum))
