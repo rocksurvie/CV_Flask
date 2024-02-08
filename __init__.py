@@ -47,7 +47,7 @@ def Readfiche(api_key):
     data = cursor.fetchall()
     conn.close()
     array_sum = str(data[0]) + "5625719273"
-    if check_sum_256(data, api_key, sha256_hash(array_sum)): 
+    if check_sum_256(data, sha256_hash(array_sum), api_key): 
         # Rendre le template HTML et transmettre les données
         return render_template('read_data.html', data=data)
     return "api_key !!"
