@@ -63,6 +63,20 @@ def ajouter_client():
 
     return redirect('/resume_2')
 
+
+@app.route('/paris/<int:api_key>')
+def meteo(api_key):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM clients')
+    data = cursor.fetchall()
+    conn.close()
+    if api_key == 5625719273:
+        return jsonify(results=data)
+    return "api_key !!"
+
+
+
 @app.route('/resume_template')
 def resume_template():
     return render_template("resume_template.html")
