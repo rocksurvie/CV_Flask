@@ -79,6 +79,8 @@ def ajouter_client():
     return redirect('/')
 
 
+
+
 @app.route('/resume_template')
 def resume_template():
     return render_template("resume_template.html")
