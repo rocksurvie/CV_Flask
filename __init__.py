@@ -27,7 +27,7 @@ def sha256_hash(input_string):
 
 def check_sum_256(array, api_value, key_to_check):
     # Calcul de la somme
-    array_sum = array[0] + api_value
+    array_sum = str(array[0]) + api_value
 
     # Hachage de la somme avec SHA-256
     hashed_sum = sha256_hash(str(array_sum))
@@ -46,7 +46,7 @@ def Readfiche(api_key):
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall()
     conn.close()
-    array_sum = data[0]+"5625719273"
+    array_sum = str(data[0]) + "5625719273"
     if check_sum_256(data, api_key, sha256_hash(array_sum)): 
         # Rendre le template HTML et transmettre les données
         return render_template('read_data.html', data=data)
@@ -60,7 +60,7 @@ def afficheGraph(api_key):
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall()
     conn.close()
-    array_sum = data[0]+"5625719273"
+    array_sum = str(data[0]) + "5625719273"
     if check_sum_256(data, api_key, sha256_hash(array_sum)): 
         # Rendre le template HTML et transmettre les données
         return render_template('read_data.html', data=data)
