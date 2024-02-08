@@ -62,6 +62,21 @@ def Readfiche(api_key):
     return "api_key !!"
 
 
+@app.route('/ajouter_message', methods=['POST'])
+def ajouter_client():
+    nom = request.form['nom']
+    prenom = request.form['prenom']
+    messages = request.form['messages']
+
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    cursor.execute("INSERT INTO clients (nom, prenom, messages) VALUES (?, ?, ?)", (nom, prenom, messages))
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/')
 
 
 @app.route('/resume_template')
