@@ -39,7 +39,7 @@ def check_sum_256(array, api_value, key_to_check):
         return False
     
 """5625719273"""
-
+@app.route('/consultation/<int:api_key>')
 def afficheListe(api_key):
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
