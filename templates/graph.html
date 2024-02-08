@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8" />
-    <title>Message Count Chart</title>
+    <title>Metric</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
@@ -10,33 +11,46 @@
     <div id="chart_div"></div>
     <script>
         google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(drawMessageCountChart);
+        google.charts.setOnLoadCallback(drawBackgroundColor);
 
-        function drawMessageCountChart() {
+        function drawBackgroundColor() {
             function drawChart(data) {
                 var dataTable = new google.visualization.DataTable();
                 dataTable.addColumn('string', 'Date');
-                dataTable.addColumn('number', 'Message Count');
+                dataTable.addColumn('number', 'Valeur');
 
                 data.results.forEach(entry => {
-                    dataTable.addRow([entry.date, entry.count]);
+                    // Assuming entry is an array with timestamp and message values
+                    var date = new Date(entry[1]); // entry[1] is the timestamp field
+                    dataTable.addRow([date.toLocaleDateString(), 1]); // Assuming each entry represents one message
                 });
 
                 var options = {
-                    title: 'Message Count Per Day',
-                    legend: { position: 'none' }
+                    title: 'Nombre de Messages Reçus par Jour',
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
                 };
 
-                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
                 chart.draw(dataTable, options);
             }
 
-            fetch('/message_count/5625719273')
-                .then(response => response.json())
-                .then(data => {
-                    drawChart(data);
-                });
+            // Replace the following line with your actual fetch code
+            // fetch('/your_message_count_api_endpoint/5625719273')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         drawChart(data);
+            //     });
+
+            // For testing purposes, using hardcoded data
+            var testData = {
+                "results": [
+                    [1, "2024-02-08 10:19:11", "DUPONT", "Emilie", "Je veux te recruter"]
+                ]
+            };
+            drawChart(testData);
         }
     </script>
 </body>
+
 </html>
