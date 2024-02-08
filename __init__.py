@@ -40,14 +40,14 @@ def check_sum_256(array, api_value, key_to_check):
     
 """5625719273"""
 
-def Readfiche(api_key):
+def afficheListe(api_key):
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall()
     conn.close()
     array_sum = str(data[0]) + "5625719273"
-    if check_sum_256(data, sha256_hash(array_sum), api_key): 
+    if check_sum_256(data, api_key, sha256_hash(array_sum)): 
         # Rendre le template HTML et transmettre les données
         return render_template('read_data.html', data=data)
     return "api_key !!"
