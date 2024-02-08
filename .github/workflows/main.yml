@@ -11,6 +11,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          port: ${{ secrets.PORT }}
           script: |
             cd $HOME/www/
   Copy:
