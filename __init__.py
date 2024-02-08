@@ -2,7 +2,7 @@ from flask import Flask,render_template
 
 app = Flask(__name__) #creating flask app name
 
-@app.route('/')
+@app.route('/resume_2')
 def home():
     return render_template("index.html")
 
@@ -10,7 +10,7 @@ def home():
 def resume_1():
     return render_template("resume_1.html")
 
-@app.route('/resume_2')
+@app.route('/')
 def resume_2():
     return render_template("resume_2.html")
 
