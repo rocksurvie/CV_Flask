@@ -81,7 +81,7 @@ def ajouter_client():
     conn.commit()
     conn.close()
 
-    return redirect('/')
+    return redirect('/ajouter_message')
 
 
 
