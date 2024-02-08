@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Metric</title>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <meta charset="UTF-8" />
+    <title>Message Count Chart</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
-  <div id="chart_div"></div>
-  <script>
-    google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawBackgroundColor);
+    <div id="chart_div"></div>
+    <script>
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawMessageCountChart);
 
-    function drawBackgroundColor() {
-      function drawChart(data) {
-        // Convert the retrieved data into a format usable by Google Charts
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('string', 'Date');
-        dataTable.addColumn('number', 'Valeur');
-        
-        data.results.forEach(entry => {
-          // Assuming entry is an array with date and temp values
-          dataTable.addRow([entry[1], entry[2]]);
-        });
+        function drawMessageCountChart() {
+            function drawChart(data) {
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Date');
+                dataTable.addColumn('number', 'Message Count');
 
-        // Configure line chart options
-        var options = {
-          title: 'Temperature Evolution for Paris in the Next 16 Days',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+                data.results.forEach(entry => {
+                    dataTable.addRow([entry.date, entry.count]);
+                });
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(dataTable, options);
-      }
+                var options = {
+                    title: 'Message Count Per Day',
+                    legend: { position: 'none' }
+                };
 
-      // Fetch data from your API endpoint
-      fetch('/paris/5625719273')
-        .then(response => response.json())
-        .then(data => {
-          drawChart(data);
-        });
-    }
-  </script>
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                chart.draw(dataTable, options);
+            }
+
+            fetch('/message_count/5625719273')
+                .then(response => response.json())
+                .then(data => {
+                    drawChart(data);
+                });
+        }
+    </script>
 </body>
 </html>
