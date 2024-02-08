@@ -49,6 +49,20 @@ def Readfiche(api_key):
     return "api_key !!"
 
 
+@app.route('/graphique/<int:api_key>')
+def Readfiche(api_key):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM clients')
+    data = cursor.fetchall()
+    conn.close()
+    if check_sum_256(data, api_key, "tt"): 
+        # Rendre le template HTML et transmettre les données
+        return render_template('read_data.html', data=data)
+    return "api_key !!"
+
+
+
 
 @app.route('/resume_template')
 def resume_template():
